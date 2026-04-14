@@ -3,7 +3,7 @@ package ensend
 import (
 	"net/http"
 
-	"github.com/xpanvictor/ensend_go_sdk/config"
+	"github.com/ensendco/ensend_go_sdk/config"
 )
 
 type Client struct {
@@ -20,10 +20,10 @@ type Client struct {
 func New(apiKey string, opts ...Option) *Client {
 	c := &Client{
 		apiKey:    apiKey,
-		baseURL: config.BaseURL,
+		baseURL:   config.BaseURL,
 		userAgent: config.UserAgent,
 
-		transport: http.DefaultTransport,
+		transport:  http.DefaultTransport,
 		httpClient: &http.Client{},
 	}
 

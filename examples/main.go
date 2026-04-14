@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	ensend "github.com/xpanvictor/ensend_go_sdk"
+	ensend "github.com/ensendco/ensend_go_sdk"
 )
 
 func main() {
@@ -26,7 +26,7 @@ func main() {
 			{
 				Name:    "Ensend Labs",
 				Address: "tenotea@ensend.me",
-				Variables: UserDetails {
+				Variables: UserDetails{
 					FirstName: "Ensend",
 				},
 			},

@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
+	ensend "github.com/ensendco/ensend_go_sdk"
 	"github.com/joho/godotenv"
-	ensend "github.com/xpanvictor/ensend_go_sdk"
 )
 
 func TestEmailsSendIntegration_DemoServer(t *testing.T) {
