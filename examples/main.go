@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	ensend "github.com/ensendco/ensend_go_sdk"
+	ensend "github.com/ensendco/ensend-go"
 )
 
 func main() {

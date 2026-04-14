@@ -5,7 +5,7 @@ Go client for sending emails through SMTPExpress/Ensend.
 ## Install
 
 ```bash
-go get github.com/ensendco/ensend_go_sdk
+go get github.com/ensendco/ensend-go
 ```
 
 ## Quick Start
@@ -17,12 +17,12 @@ import (
 	"context"
 	"fmt"
 
-	ensend "github.com/ensendco/ensend_go_sdk"
+	ensend "github.com/ensendco/ensend-go"
 )
 
 func main() {
 	client := ensend.New("YOUR_API_KEY",
-		ensend.WithBaseURL("https://api.smtpexpress.com"),
+		ensend.WithBaseURL("https://api.ensend.co"),
 	)
 
 	resp, err := client.Emails.Send(context.Background(), ensend.SendEmailRequest[map[string]any]{
@@ -30,7 +30,7 @@ func main() {
 		Message: "Hello from Go",
 		Sender: ensend.Address{
 			Name:    "SMTP Express User",
-			Address: "documentation@ensend.me", // serialized as sender.email
+			Address: "your_sender_identity", // serialized as sender.email
 		},
 		Recipients: []ensend.Recipient[map[string]any]{
 			{
@@ -60,8 +60,8 @@ func main() {
 ## Response Shape
 
 Success responses will return:
-- `data.ref` (mapped to `SendEmailResponse.Data.Ref`)
 
+- `data.ref` (mapped to `SendEmailResponse.Data.Ref`)
 
 ## Options
 

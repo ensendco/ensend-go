@@ -3,7 +3,7 @@ package ensend
 import (
 	"net/http"
 
-	"github.com/ensendco/ensend_go_sdk/config"
+	"github.com/ensendco/ensend-go"
 )
 
 type Client struct {

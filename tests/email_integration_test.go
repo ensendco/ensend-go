@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	ensend "github.com/ensendco/ensend_go_sdk"
+	ensend "github.com/ensendco/ensend-go"
 	"github.com/joho/godotenv"
 )
 

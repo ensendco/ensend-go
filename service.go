@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/ensendco/ensend_go_sdk/internal"
+	"github.com/ensendco/ensend-go/internal"
 )
 
 type emailsService struct {
