@@ -59,12 +59,9 @@ func main() {
 
 ## Response Shape
 
-Success responses may return either:
-
-- `message_id` (mapped to `SendEmailResponse.MessageID`)
+Success responses will return:
 - `data.ref` (mapped to `SendEmailResponse.Data.Ref`)
 
-Check both fields if you need a send reference.
 
 ## Options
 
