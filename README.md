@@ -5,7 +5,7 @@ Go client for sending emails through SMTPExpress/Ensend.
 ## Install
 
 ```bash
-go get github.com/xpanvictor/ensend_go_sdk
+go get github.com/ensendco/ensend_go_sdk
 ```
 
 ## Quick Start
@@ -17,7 +17,7 @@ import (
 	"context"
 	"fmt"
 
-	ensend "github.com/xpanvictor/ensend_go_sdk"
+	ensend "github.com/ensendco/ensend_go_sdk"
 )
 
 func main() {
