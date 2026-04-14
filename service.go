@@ -18,7 +18,7 @@ func (s *emailsService) send(
 ) (*SendEmailResponse, error) {
 
 	r := internal.Requester{
-		APIKey:     s.client.apiKey,
+		Secret:     s.client.secret,
 		BaseURL:    s.client.baseURL,
 		UserAgent:  s.client.userAgent,
 		HTTPClient: s.client.httpClient,

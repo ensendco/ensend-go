@@ -7,9 +7,9 @@ import (
 
 type Option func(*Client)
 
-func WithBaseURL(url string) Option {
+func WithProjectSecret(secret string) Option {
 	return func(c *Client) {
-		c.baseURL = url
+		c.secret = secret
 	}
 }
 

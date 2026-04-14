@@ -8,7 +8,7 @@ import (
 )
 
 type Requester struct {
-	APIKey     string
+	Secret     string
 	BaseURL    string
 	UserAgent  string
 	HTTPClient *http.Client
@@ -39,7 +39,7 @@ func (r *Requester) Do(
 		return nil, err
 	}
 
-	req.Header.Set("Authorization", "Bearer "+r.APIKey)
+	req.Header.Set("Authorization", "Bearer "+r.Secret)
 	req.Header.Set("User-Agent", r.UserAgent)
 	req.Header.Set("Content-Type", "application/json")
 

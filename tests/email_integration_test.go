@@ -29,9 +29,7 @@ func TestEmailsSendIntegration_DemoServer(t *testing.T) {
 	}))
 	defer server.Close()
 
-	client := ensend.New("demo-api-key",
-		ensend.WithBaseURL(server.URL),
-	)
+	client := ensend.New()
 
 	resp, err := client.Emails.Send(context.Background(), ensend.SendEmailRequest[map[string]any]{
 		Subject: "Demo integration test",
@@ -61,7 +59,7 @@ func TestEmailsSendIntegration_SMTPExpressCredentials(t *testing.T) {
 	_ = godotenv.Load(".env")
 	_ = godotenv.Load("../.env")
 
-	apiKey := os.Getenv("ENSEND_API_KEY")
+	apiKey := os.Getenv("ENSEND_PROJECT_SECRET_KEY")
 	sender := os.Getenv("ENSEND_TEST_SENDER")
 	recipient := os.Getenv("ENSEND_TEST_RECIPIENT")
 
@@ -74,7 +72,7 @@ func TestEmailsSendIntegration_SMTPExpressCredentials(t *testing.T) {
 		baseURL = "https://api.smtpexpress.com"
 	}
 
-	client := ensend.New(apiKey, ensend.WithBaseURL(baseURL))
+	client := ensend.New()
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()

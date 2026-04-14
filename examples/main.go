@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	client := ensend.New("api-key",
+	client := ensend.New(
 		ensend.WithMiddleware(ensend.LoggingMiddleware),
 	)
 

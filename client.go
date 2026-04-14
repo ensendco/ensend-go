@@ -2,12 +2,13 @@ package ensend
 
 import (
 	"net/http"
+	"os"
 
-	"github.com/ensendco/ensend-go"
+	"github.com/ensendco/ensend-go/config"
 )
 
 type Client struct {
-	apiKey     string
+	secret     string
 	baseURL    string
 	userAgent  string
 	httpClient *http.Client
@@ -17,12 +18,17 @@ type Client struct {
 	Emails *emailsService
 }
 
-func New(apiKey string, opts ...Option) *Client {
-	c := &Client{
-		apiKey:    apiKey,
-		baseURL:   config.BaseURL,
-		userAgent: config.UserAgent,
+func New(opts ...Option) *Client {
+	secret := os.Getenv("ENSEND_PROJECT_SECRET_KEY")
+	baseURL := os.Getenv("ENSEND_BASE_URL")
+	if baseURL == "" {
+		baseURL = config.BaseURL
+	}
 
+	c := &Client{
+		secret:     secret,
+		baseURL:    baseURL,
+		userAgent:  config.UserAgent,
 		transport:  http.DefaultTransport,
 		httpClient: &http.Client{},
 	}
