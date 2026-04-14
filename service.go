@@ -26,7 +26,7 @@ func (s *emailsService) send(
 
 	var out SendEmailResponse
 
-	resp, err := r.Do(ctx, http.MethodPost, "/send/email", req, &out)
+	resp, err := r.Do(ctx, http.MethodPost, "/send", req, &out)
 	if err != nil {
 		return nil, err
 	}

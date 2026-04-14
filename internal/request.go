@@ -48,9 +48,11 @@ func (r *Requester) Do(
 		return nil, err
 	}
 
-	if out != nil {
+	if out != nil && resp.StatusCode < http.StatusBadRequest {
 		defer resp.Body.Close()
-		json.NewDecoder(resp.Body).Decode(out)
+		if err := json.NewDecoder(resp.Body).Decode(out); err != nil {
+			return nil, err
+		}
 	}
 
 	return resp, nil

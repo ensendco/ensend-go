@@ -3,7 +3,9 @@ package ensend
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"strings"
 )
 
 type APIError struct {
@@ -22,15 +24,31 @@ func (e *APIError) Error() string {
 }
 
 func parseAPIError(resp *http.Response) error {
-	var payload struct {
-		Error string `json:"error"`
-	}
+	defer resp.Body.Close()
 
-	json.NewDecoder(resp.Body).Decode(&payload)
+	body, _ := io.ReadAll(resp.Body)
+
+	var payload struct {
+		Error   string `json:"error"`
+		Message string `json:"message"`
+		Detail  string `json:"detail"`
+	}
+	_ = json.Unmarshal(body, &payload)
+
+	msg := strings.TrimSpace(payload.Error)
+	if msg == "" {
+		msg = strings.TrimSpace(payload.Message)
+	}
+	if msg == "" {
+		msg = strings.TrimSpace(payload.Detail)
+	}
+	if msg == "" {
+		msg = strings.TrimSpace(string(body))
+	}
 
 	return &APIError{
 		StatusCode: resp.StatusCode,
-		Message:    payload.Error,
+		Message:    msg,
 		RequestID:  resp.Header.Get("X-Request-ID"),
 	}
 }
