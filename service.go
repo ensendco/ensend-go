@@ -42,7 +42,7 @@ func (s *emailsService) send(
 // (uses map[string]any for recipient variables).
 func (s *emailsService) Send(
 	ctx context.Context,
-	req SendEmailRequest[map[string]any],
+	req SendEmailRequestVars,
 ) (*SendEmailResponse, error) {
 	return s.send(ctx, req)
 }
@@ -51,10 +51,10 @@ func (s *emailsService) Send(
 // Usage:
 //
 //	resp, err := ensend.Send(ctx, client.Emails, ensend.SendEmailRequest[UserDetails]{...})
-func Send[V any](
+func Send[V any, K any](
 	ctx context.Context,
 	svc *emailsService,
-	req SendEmailRequest[V],
+	req SendEmailRequest[V, K],
 ) (*SendEmailResponse, error) {
 	return svc.send(ctx, req)
 }

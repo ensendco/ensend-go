@@ -16,7 +16,7 @@ func main() {
 		FirstName string
 	}
 
-	resp, err := ensend.Send(context.Background(), client.Emails, ensend.SendEmailRequest[UserDetails]{
+	resp, err := ensend.Send(context.Background(), client.Emails, ensend.SendEmailRequest[UserDetails, any]{
 		Subject: "{{firstName}}, Welcome to Ensend",
 		Sender: ensend.Address{
 			Name:    "Sender Name",

@@ -31,7 +31,7 @@ func TestEmailsSendIntegration_DemoServer(t *testing.T) {
 
 	client := ensend.New()
 
-	resp, err := client.Emails.Send(context.Background(), ensend.SendEmailRequest[map[string]any]{
+	resp, err := client.Emails.Send(context.Background(), ensend.SendEmailRequestVars{
 		Subject: "Demo integration test",
 		Sender: ensend.Address{
 			Name:    "Demo Sender",
@@ -77,7 +77,7 @@ func TestEmailsSendIntegration_SMTPExpressCredentials(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
-	resp, err := client.Emails.Send(ctx, ensend.SendEmailRequest[map[string]any]{
+	resp, err := client.Emails.Send(ctx, ensend.SendEmailRequestVars{
 		Subject: "SMTPExpress SDK integration test",
 		Sender: ensend.Address{
 			Name:    "SDK Integration",

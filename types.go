@@ -11,8 +11,9 @@ type Recipient[V any] struct {
 	Variables V      `json:"variables,omitempty"`
 }
 
-type TemplateRef struct {
-	ID string `json:"id"`
+type TemplateRef[V any] struct {
+	ID        string `json:"id"`
+	Variables V      `json:"variables,omitempty"`
 }
 
 type Attachment struct {
@@ -21,14 +22,15 @@ type Attachment struct {
 	Content string `json:"content,omitempty"`
 }
 
-type SendEmailRequest[V any] struct {
-	Subject      string         `json:"subject"`
-	Sender       Address        `json:"sender"`
-	Recipients   []Recipient[V] `json:"recipients"`
-	Message      string         `json:"message,omitempty"`
-	Template     *TemplateRef   `json:"template,omitempty"`
-	ReplyAddress string         `json:"replyAddress,omitempty"`
-	Attachments  []Attachment   `json:"attachments,omitempty"`
+type SendEmailRequestVars = SendEmailRequest[map[string]any, map[string]any]
+type SendEmailRequest[V any, K any] struct {
+	Subject      string          `json:"subject"`
+	Sender       Address         `json:"sender"`
+	Recipients   []Recipient[V]  `json:"recipients"`
+	Message      string          `json:"message,omitempty"`
+	Template     *TemplateRef[K] `json:"template,omitempty"`
+	ReplyAddress string          `json:"replyAddress,omitempty"`
+	Attachments  []Attachment    `json:"attachments,omitempty"`
 }
 
 type SendEmailResponse struct {
