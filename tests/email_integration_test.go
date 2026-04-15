@@ -25,13 +25,13 @@ func TestEmailsSendIntegration_DemoServer(t *testing.T) {
 		}
 
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"message_id":"abc123","status":"sent"}`))
+		w.Write([]byte(`{"message":"Sent successfully","statusCode":200, "data":{"ref":"abc123"}}`))
 	}))
 	defer server.Close()
 
 	client := ensend.New()
 
-	resp, err := client.Emails.Send(context.Background(), ensend.SendEmailRequestVars{
+	resp, err := client.SendApi.SendMailMessage(context.Background(), ensend.SendEmailRequestVars{
 		Subject: "Demo integration test",
 		Sender: ensend.Address{
 			Name:    "Demo Sender",
@@ -50,8 +50,12 @@ func TestEmailsSendIntegration_DemoServer(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if resp.MessageID != "abc123" {
-		t.Fatalf("expected abc123 got %s", resp.MessageID)
+	if resp.StatusCode != 200 {
+		t.Fatalf("expected statusCode 200 got %s", resp.StatusCode)
+	}
+
+	if resp.Data.Ref != "abc123" {
+		t.Fatalf("expected abc123 got %s", resp.Data.Ref)
 	}
 }
 
@@ -77,7 +81,7 @@ func TestEmailsSendIntegration_SMTPExpressCredentials(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
-	resp, err := client.Emails.Send(ctx, ensend.SendEmailRequestVars{
+	resp, err := client.SendApi.SendMailMessage(ctx, ensend.SendEmailRequestVars{
 		Subject: "SMTPExpress SDK integration test",
 		Sender: ensend.Address{
 			Name:    "SDK Integration",
@@ -92,11 +96,11 @@ func TestEmailsSendIntegration_SMTPExpressCredentials(t *testing.T) {
 		Message:      "This is an automated integration test from ensend_go_sdk.",
 		ReplyAddress: sender,
 	})
-	if err != nil {
+	if err != nil || resp.StatusCode >= 400 {
 		t.Fatalf("real SMTPExpress send failed: %v", err)
 	}
 
-	if resp.MessageID == "" && (resp.Data == nil || resp.Data.Ref == "") {
+	if resp.Data == nil || resp.Data.Ref == "" {
 		t.Fatalf("expected non-empty message identifier (message_id or data.ref), got response: %+v", resp)
 	}
 }

@@ -15,7 +15,7 @@ type Client struct {
 
 	transport http.RoundTripper
 
-	Emails *emailsService
+	SendApi *emailsService
 }
 
 func New(opts ...Option) *Client {
@@ -41,7 +41,7 @@ func New(opts ...Option) *Client {
 	c.httpClient.Transport = c.transport
 
 	// register services
-	c.Emails = &emailsService{client: c}
+	c.SendApi = &emailsService{client: c}
 
 	return c
 }

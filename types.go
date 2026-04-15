@@ -34,8 +34,6 @@ type SendEmailRequest[V any, K any] struct {
 }
 
 type SendEmailResponse struct {
-	MessageID  string                 `json:"message_id,omitempty"`
-	Status     string                 `json:"status,omitempty"`
 	Message    string                 `json:"message,omitempty"`
 	StatusCode int                    `json:"statusCode,omitempty"`
 	Data       *SendEmailResponseData `json:"data,omitempty"`

@@ -40,7 +40,7 @@ func (s *emailsService) send(
 
 // Send is a convenience method for requests with no custom variable types
 // (uses map[string]any for recipient variables).
-func (s *emailsService) Send(
+func (s *emailsService) SendMailMessage(
 	ctx context.Context,
 	req SendEmailRequestVars,
 ) (*SendEmailResponse, error) {
@@ -51,7 +51,7 @@ func (s *emailsService) Send(
 // Usage:
 //
 //	resp, err := ensend.Send(ctx, client.Emails, ensend.SendEmailRequest[UserDetails]{...})
-func Send[V any, K any](
+func SendMailMessage[V any, K any](
 	ctx context.Context,
 	svc *emailsService,
 	req SendEmailRequest[V, K],
